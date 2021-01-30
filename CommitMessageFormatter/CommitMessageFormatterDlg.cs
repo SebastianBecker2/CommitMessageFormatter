@@ -48,10 +48,6 @@ namespace CommitMessageFormatter
             {
                 LblStatus.Text = "Unable to insert from clipboard.";
             }
-            finally
-            {
-                TimClipboard.Enabled = false;
-            }
 
             base.OnLoad(e);
         }
