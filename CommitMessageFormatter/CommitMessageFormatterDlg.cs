@@ -34,7 +34,25 @@ namespace CommitMessageFormatter
         protected override void OnLoad(EventArgs e)
         {
             LblStatus.Text = "";
-            RtbCommitMessage.Text = "Add platform dependent copy of libmpv\r\nTo allow us to load the x86 DLL for the x86 platform and the x64 DLL for the x64 platform, we use a post build script to copy depending on the selected platform.Since we need a const path to the DLL, we copy directly into the output folder, to avoid a platform dependent paths.Downside is, we need to copy to the output folder of VideoDedupConsole ourself.Thus the build script is in the VideoDedupConsole project directly and it's referencing the DedupEngine project by name.";
+
+            try
+            {
+                var clipboardData = Clipboard.GetDataObject();
+                if (clipboardData.GetFormats().Contains("Text"))
+                {
+                    RtbCommitMessage.Text =
+                        clipboardData.GetData("Text") as string;
+                }
+            }
+            catch (ExternalException)
+            {
+                LblStatus.Text = "Unable to insert from clipboard.";
+            }
+            finally
+            {
+                TimClipboard.Enabled = false;
+            }
+
             base.OnLoad(e);
         }
 
