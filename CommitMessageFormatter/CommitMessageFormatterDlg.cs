@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WeCantSpell.Hunspell;
 
 namespace CommitMessageFormatter
 {
@@ -17,8 +20,12 @@ namespace CommitMessageFormatter
         private const int MaxHeaderLength = 50;
         private const int MaxBodyLength = 72;
         private const string HeaderTooLongText = " [HEADER TOO LONG]";
+        // Since RichTextBox is forcing every \r\n to \n
+        private const string ActualNewLine = "\n";
 
+#pragma warning disable CA1805 // Do not initialize unnecessarily
         private bool isReformatting = false;
+#pragma warning restore CA1805 // Do not initialize unnecessarily
         public CommitMessageFormatterDlg()
         {
             InitializeComponent();
@@ -27,12 +34,13 @@ namespace CommitMessageFormatter
         protected override void OnLoad(EventArgs e)
         {
             LblStatus.Text = "";
+            RtbCommitMessage.Text = "Add platform dependent copy of libmpv\r\nTo allow us to load the x86 DLL for the x86 platform and the x64 DLL for the x64 platform, we use a post build script to copy depending on the selected platform.Since we need a const path to the DLL, we copy directly into the output folder, to avoid a platform dependent paths.Downside is, we need to copy to the output folder of VideoDedupConsole ourself.Thus the build script is in the VideoDedupConsole project directly and it's referencing the DedupEngine project by name.";
             base.OnLoad(e);
         }
 
-        private string FormattingCommitMessage(string message)
+        private static string FormattingCommitMessage(string message)
         {
-            var endOfHeader = message.IndexOf(Environment.NewLine);
+            var endOfHeader = message.IndexOf(ActualNewLine);
             // If it's header only
             if (endOfHeader == -1)
             {
@@ -49,18 +57,18 @@ namespace CommitMessageFormatter
             {
                 formatted += HeaderTooLongText;
             }
-            formatted += Environment.NewLine + Environment.NewLine;
+            formatted += ActualNewLine + ActualNewLine;
 
             do
             {
-                endOfHeader += Environment.NewLine.Length;
+                endOfHeader += ActualNewLine.Length;
             } while (message
                 .Substring(endOfHeader)
-                .StartsWith(Environment.NewLine));
+                .StartsWith(ActualNewLine));
 
             var words = message
                 .Substring(endOfHeader)
-                .Replace(Environment.NewLine, " ")
+                .Replace(ActualNewLine, " ")
                 .Split(' ');
 
             var line = "";
@@ -68,7 +76,7 @@ namespace CommitMessageFormatter
             {
                 if (line.Any() && (line + " " + word).Length > MaxBodyLength)
                 {
-                    formatted += line + Environment.NewLine;
+                    formatted += line + ActualNewLine;
                     line = "";
                 }
                 if (line.Any())
@@ -83,7 +91,48 @@ namespace CommitMessageFormatter
             return formatted + line;
         }
 
-        private void TxtCommitMessage_TextChanged(object sender, EventArgs e)
+        private void CheckSpelling()
+        {
+            var dictionary = WordList.CreateFromFiles(
+                    @"dictionary\en_US.dic",
+                    @"dictionary\en_US.aff");
+
+            var words = RtbCommitMessage.Text
+                .Split(' ', '.', ',', ';', '-', '_', '\n')
+                .Where(w => !string.IsNullOrWhiteSpace(w));
+
+            foreach (var word in words)
+            {
+                if (dictionary.Check(word))
+                {
+                    continue;
+                }
+
+                var index = -1;
+                while (true)
+                {
+                    index = RtbCommitMessage.Text.IndexOf(word, index + 1);
+                    if (index == -1)
+                    {
+                        break;
+                    }
+                    RtbCommitMessage.SelectionStart = index;
+                    RtbCommitMessage.SelectionLength = word.Length;
+                    RtbCommitMessage.SelectionFont = new Font(
+                        RtbCommitMessage.SelectionFont,
+                        FontStyle.Underline);
+                }
+
+                //Debug.Print($"Wrong much? {word}");
+                //var suggestions = dictionary.Suggest(word);
+                //foreach (var suggestion in suggestions)
+                //{
+                //    Debug.Print($"What about: {suggestion}");
+                //}
+            }
+        }
+
+        private void RtbCommitMessage_TextChanged(object sender, EventArgs e)
         {
             if (isReformatting)
             {
@@ -93,8 +142,13 @@ namespace CommitMessageFormatter
 
             try
             {
-                TxtCommitMessage.Text =
-                    FormattingCommitMessage(TxtCommitMessage.Text);
+                var selectionStart = RtbCommitMessage.SelectionStart;
+                var selectionLength = RtbCommitMessage.SelectionLength;
+                RtbCommitMessage.Text =
+                    FormattingCommitMessage(RtbCommitMessage.Text);
+                CheckSpelling();
+                RtbCommitMessage.SelectionStart = selectionStart;
+                RtbCommitMessage.SelectionLength = selectionLength;
             }
             finally
             {
@@ -108,7 +162,7 @@ namespace CommitMessageFormatter
             try
             {
                 Clipboard.SetDataObject(
-                    TxtCommitMessage.Text,
+                    RtbCommitMessage.Text.Replace(ActualNewLine, Environment.NewLine),
                     true,
                     5, // number of retries
                     10); // delay between retries

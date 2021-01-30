@@ -30,34 +30,25 @@ namespace CommitMessageFormatter
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.TxtCommitMessage = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.LblStatus = new System.Windows.Forms.Label();
+            this.RtbCommitMessage = new System.Windows.Forms.RichTextBox();
             this.TimClipboard = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // TxtCommitMessage
-            // 
-            this.TxtCommitMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtCommitMessage.Location = new System.Drawing.Point(3, 3);
-            this.TxtCommitMessage.Multiline = true;
-            this.TxtCommitMessage.Name = "TxtCommitMessage";
-            this.TxtCommitMessage.Size = new System.Drawing.Size(794, 421);
-            this.TxtCommitMessage.TabIndex = 0;
-            this.TxtCommitMessage.TextChanged += new System.EventHandler(this.TxtCommitMessage_TextChanged);
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.TxtCommitMessage, 0, 0);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.LblStatus, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.RtbCommitMessage, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 99.99999F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
             this.tableLayoutPanel1.TabIndex = 1;
@@ -70,6 +61,17 @@ namespace CommitMessageFormatter
             this.LblStatus.Size = new System.Drawing.Size(794, 23);
             this.LblStatus.TabIndex = 1;
             this.LblStatus.Text = "label1";
+            // 
+            // RtbCommitMessage
+            // 
+            this.RtbCommitMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RtbCommitMessage.Location = new System.Drawing.Point(3, 3);
+            this.RtbCommitMessage.Name = "RtbCommitMessage";
+            this.RtbCommitMessage.Size = new System.Drawing.Size(794, 421);
+            this.RtbCommitMessage.TabIndex = 2;
+            this.RtbCommitMessage.Text = "";
+            this.RtbCommitMessage.WordWrap = false;
+            this.RtbCommitMessage.TextChanged += new System.EventHandler(this.RtbCommitMessage_TextChanged);
             // 
             // TimClipboard
             // 
@@ -85,17 +87,15 @@ namespace CommitMessageFormatter
             this.Name = "CommitMessageFormatterDlg";
             this.Text = "Commit Message Formatter";
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox TxtCommitMessage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label LblStatus;
         private System.Windows.Forms.Timer TimClipboard;
+        private System.Windows.Forms.RichTextBox RtbCommitMessage;
     }
 }
 
