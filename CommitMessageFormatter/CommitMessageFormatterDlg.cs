@@ -60,7 +60,7 @@ namespace CommitMessageFormatter
             {
                 if (message.Length > MaxHeaderLength)
                 {
-                    return message.Substring(0, endOfHeader) + HeaderTooLongText;
+                    return message + HeaderTooLongText;
                 }
                 return message;
             }
