@@ -58,7 +58,8 @@ namespace CommitMessageFormatter
             // If it's header only
             if (endOfHeader == -1)
             {
-                if (message.Length > MaxHeaderLength)
+                if (!message.EndsWith(HeaderTooLongText)
+                    && message.Length > MaxHeaderLength)
                 {
                     return message + HeaderTooLongText;
                 }
