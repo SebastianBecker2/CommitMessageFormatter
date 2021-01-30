@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -44,7 +44,8 @@ namespace CommitMessageFormatter
             }
 
             var formatted = message.Substring(0, endOfHeader);
-            if (!formatted.EndsWith(HeaderTooLongText) && formatted.Length > MaxHeaderLength)
+            if (!formatted.EndsWith(HeaderTooLongText)
+                && formatted.Length > MaxHeaderLength)
             {
                 formatted += HeaderTooLongText;
             }
@@ -53,7 +54,9 @@ namespace CommitMessageFormatter
             do
             {
                 endOfHeader += Environment.NewLine.Length;
-            } while (message.Substring(endOfHeader, Environment.NewLine.Length) == Environment.NewLine);
+            } while (message
+                .Substring(endOfHeader)
+                .StartsWith(Environment.NewLine));
 
             var words = message
                 .Substring(endOfHeader)
@@ -78,11 +81,6 @@ namespace CommitMessageFormatter
                 }
             }
             return formatted + line;
-        }
-
-        private void CopyCommitMessageToClipboard()
-        {
-
         }
 
         private void TxtCommitMessage_TextChanged(object sender, EventArgs e)
