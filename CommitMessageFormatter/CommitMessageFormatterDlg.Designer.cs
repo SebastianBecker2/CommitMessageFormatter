@@ -50,7 +50,7 @@ namespace CommitMessageFormatter
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(346, 216);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(529, 216);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // LblStatus
@@ -58,16 +58,17 @@ namespace CommitMessageFormatter
             this.LblStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LblStatus.Location = new System.Drawing.Point(3, 193);
             this.LblStatus.Name = "LblStatus";
-            this.LblStatus.Size = new System.Drawing.Size(340, 23);
+            this.LblStatus.Size = new System.Drawing.Size(523, 23);
             this.LblStatus.TabIndex = 1;
             this.LblStatus.Text = "label1";
             // 
             // RtbCommitMessage
             // 
             this.RtbCommitMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RtbCommitMessage.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.RtbCommitMessage.Location = new System.Drawing.Point(3, 3);
             this.RtbCommitMessage.Name = "RtbCommitMessage";
-            this.RtbCommitMessage.Size = new System.Drawing.Size(340, 187);
+            this.RtbCommitMessage.Size = new System.Drawing.Size(523, 187);
             this.RtbCommitMessage.TabIndex = 2;
             this.RtbCommitMessage.Text = "";
             this.RtbCommitMessage.WordWrap = false;
@@ -82,7 +83,7 @@ namespace CommitMessageFormatter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(346, 216);
+            this.ClientSize = new System.Drawing.Size(529, 216);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "CommitMessageFormatterDlg";
             this.Text = "Commit Message Formatter";
