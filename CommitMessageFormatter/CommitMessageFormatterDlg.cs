@@ -58,17 +58,19 @@ namespace CommitMessageFormatter
             // If it's header only
             if (endOfHeader == -1)
             {
-                if (!message.EndsWith(HeaderTooLongText)
-                    && message.Length > MaxHeaderLength)
+                message = message.Replace(HeaderTooLongText, "");
+                if (message.Length > MaxHeaderLength)
                 {
                     return message + HeaderTooLongText;
                 }
                 return message;
             }
 
-            var formatted = message.Substring(0, endOfHeader);
-            if (!formatted.EndsWith(HeaderTooLongText)
-                && formatted.Length > MaxHeaderLength)
+            var formatted = message
+                .Substring(0, endOfHeader)
+                .Replace(HeaderTooLongText, "");
+            ;
+            if (formatted.Length > MaxHeaderLength)
             {
                 formatted += HeaderTooLongText;
             }
