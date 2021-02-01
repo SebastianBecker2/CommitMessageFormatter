@@ -30,6 +30,7 @@ namespace CommitMessageFormatter
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CommitMessageFormatterDlg));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.LblStatus = new System.Windows.Forms.Label();
             this.RtbCommitMessage = new System.Windows.Forms.RichTextBox();
@@ -85,6 +86,7 @@ namespace CommitMessageFormatter
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(529, 216);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CommitMessageFormatterDlg";
             this.Text = "Commit Message Formatter";
             this.tableLayoutPanel1.ResumeLayout(false);
