@@ -89,6 +89,8 @@ namespace CommitMessageFormatter
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CommitMessageFormatterDlg";
             this.Text = "Commit Message Formatter";
+            this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CommitMessageFormatterDlg_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

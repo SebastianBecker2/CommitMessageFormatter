@@ -52,6 +52,17 @@ namespace CommitMessageFormatter
             base.OnLoad(e);
         }
 
+        protected override void OnShown(EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+            Show();
+            WindowState = FormWindowState.Normal;
+            BringToFront();
+            Activate();
+            Focus();
+            base.OnShown(e);
+        }
+
         private static string FormattingCommitMessage(string message)
         {
             var endOfHeader = message.IndexOf(ActualNewLine);
@@ -79,12 +90,9 @@ namespace CommitMessageFormatter
             do
             {
                 endOfHeader += ActualNewLine.Length;
-            } while (message
-                .Substring(endOfHeader)
-                .StartsWith(ActualNewLine));
+            } while (message[endOfHeader..].StartsWith(ActualNewLine));
 
-            var words = message
-                .Substring(endOfHeader)
+            var words = message[endOfHeader..]
                 .Replace(ActualNewLine, " ")
                 .Split(' ');
 
@@ -193,6 +201,13 @@ namespace CommitMessageFormatter
             {
                 TimClipboard.Enabled = false;
             }
+        }
+
+        private void CommitMessageFormatterDlg_FormClosing(object sender,
+            FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Visible = false;
         }
     }
 }

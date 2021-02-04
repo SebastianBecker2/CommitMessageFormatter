@@ -14,8 +14,8 @@ namespace CommitMessageFormatter
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            using var app = new CommitMessageFormatterApp();
-            Application.Run();
+
+            Application.Run(new CommitMessageFormatterApp());
         }
     }
 }
