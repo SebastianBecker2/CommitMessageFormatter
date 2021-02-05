@@ -6,6 +6,7 @@ namespace CommitMessageFormatter
     using System.Drawing;
     using System.Linq;
     using System.Runtime.InteropServices;
+    using System.Text.RegularExpressions;
     using System.Windows.Forms;
     using CommitMessageFormatter.Properties;
     using WeCantSpell.Hunspell;
@@ -21,7 +22,7 @@ namespace CommitMessageFormatter
 #pragma warning disable CA1805 // Do not initialize unnecessarily
         private bool isReformatting = false;
 #pragma warning restore CA1805 // Do not initialize unnecessarily
-        private Dictionary<string, bool> SpellcheckedWords =
+        private readonly Dictionary<string, bool> spellcheckedWords =
             new Dictionary<string, bool>();
 
         public CommitMessageFormatterDlg() => InitializeComponent();
@@ -193,13 +194,14 @@ namespace CommitMessageFormatter
                     @"dictionary\en_US.dic",
                     @"dictionary\en_US.aff");
 
-            var words = RtbCommitMessage.Text
-                .Split(' ', '.', ',', ';', '-', '_', '\n', ']', '[', ':')
-                .Where(w => !string.IsNullOrWhiteSpace(w));
+            var rx = new Regex(
+                @"((\b[^\s]+\b)((?<=\.\w).)?)",
+                RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            var matches = rx.Matches(RtbCommitMessage.Text);
 
-            foreach (var word in words)
+            foreach (var word in matches.Select(w => w.ToString()))
             {
-                if (SpellcheckedWords.TryGetValue(word, out var isCorrect))
+                if (spellcheckedWords.TryGetValue(word, out var isCorrect))
                 {
                     if (isCorrect)
                     {
@@ -211,11 +213,11 @@ namespace CommitMessageFormatter
                 {
                     if (dictionary.Check(word))
                     {
-                        SpellcheckedWords[word] = true;
+                        spellcheckedWords[word] = true;
                         continue;
                     }
 
-                    SpellcheckedWords[word] = false;
+                    spellcheckedWords[word] = false;
                     UnderlineWord(word);
                 }
             }
@@ -241,6 +243,11 @@ namespace CommitMessageFormatter
 
         private void RtbCommitMessage_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(RtbCommitMessage.Text))
+            {
+                return;
+            }
+
             if (isReformatting)
             {
                 return;

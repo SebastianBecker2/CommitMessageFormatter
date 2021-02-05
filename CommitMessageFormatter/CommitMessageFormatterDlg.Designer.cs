@@ -82,7 +82,7 @@ namespace CommitMessageFormatter
             this.RtbCommitMessage.Name = "RtbCommitMessage";
             this.RtbCommitMessage.Size = new System.Drawing.Size(364, 116);
             this.RtbCommitMessage.TabIndex = 2;
-            this.RtbCommitMessage.Text = "111\nlll\nMMM\nqqq\niii";
+            this.RtbCommitMessage.Text = "";
             this.RtbCommitMessage.WordWrap = false;
             this.RtbCommitMessage.TextChanged += new System.EventHandler(this.RtbCommitMessage_TextChanged);
             // 
