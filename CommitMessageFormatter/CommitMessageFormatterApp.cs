@@ -34,7 +34,6 @@ namespace CommitMessageFormatter
             RegisterHotkey();
             HotkeyManager.HotkeyPressed += (s, e) =>
             {
-                System.Diagnostics.Debug.Print("HotkeyPressed");
                 if (Interlocked.Exchange(ref isDialogOpen, 1) > 0)
                 {
                     return;

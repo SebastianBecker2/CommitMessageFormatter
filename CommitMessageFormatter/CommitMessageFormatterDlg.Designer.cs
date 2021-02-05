@@ -47,30 +47,40 @@ namespace CommitMessageFormatter
             this.tableLayoutPanel1.Controls.Add(this.RtbCommitMessage, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(529, 216);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(364, 131);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // LblStatus
             // 
+            this.LblStatus.AutoSize = true;
+            this.LblStatus.BackColor = System.Drawing.Color.Black;
             this.LblStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LblStatus.Location = new System.Drawing.Point(3, 193);
+            this.LblStatus.Font = new System.Drawing.Font("Consolas", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LblStatus.ForeColor = System.Drawing.Color.DarkGray;
+            this.LblStatus.Location = new System.Drawing.Point(0, 119);
+            this.LblStatus.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.LblStatus.Name = "LblStatus";
-            this.LblStatus.Size = new System.Drawing.Size(523, 23);
+            this.LblStatus.Size = new System.Drawing.Size(364, 12);
             this.LblStatus.TabIndex = 1;
             this.LblStatus.Text = "label1";
+            this.LblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // RtbCommitMessage
             // 
+            this.RtbCommitMessage.BackColor = System.Drawing.Color.Black;
+            this.RtbCommitMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RtbCommitMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RtbCommitMessage.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.RtbCommitMessage.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.RtbCommitMessage.Location = new System.Drawing.Point(3, 3);
+            this.RtbCommitMessage.Font = new System.Drawing.Font("Consolas", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.RtbCommitMessage.ForeColor = System.Drawing.Color.DarkGray;
+            this.RtbCommitMessage.Location = new System.Drawing.Point(0, 0);
+            this.RtbCommitMessage.Margin = new System.Windows.Forms.Padding(0);
             this.RtbCommitMessage.Name = "RtbCommitMessage";
-            this.RtbCommitMessage.Size = new System.Drawing.Size(523, 187);
+            this.RtbCommitMessage.Size = new System.Drawing.Size(364, 116);
             this.RtbCommitMessage.TabIndex = 2;
             this.RtbCommitMessage.Text = "";
             this.RtbCommitMessage.WordWrap = false;
@@ -85,7 +95,8 @@ namespace CommitMessageFormatter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(529, 216);
+            this.BackColor = System.Drawing.Color.MidnightBlue;
+            this.ClientSize = new System.Drawing.Size(364, 131);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -96,6 +107,7 @@ namespace CommitMessageFormatter
             this.Text = "Commit Message Formatter";
             this.TopMost = true;
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }

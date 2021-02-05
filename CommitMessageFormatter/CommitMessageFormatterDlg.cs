@@ -10,6 +10,12 @@ namespace CommitMessageFormatter
 
     public partial class CommitMessageFormatterDlg : Form
     {
+        private readonly Color darkBackground = Color.FromArgb(30, 30, 30);
+        private readonly Color darkForeground =
+            Color.FromKnownColor(KnownColor.WhiteSmoke);
+        private readonly Color darkSeparatorColor =
+            Color.FromKnownColor(KnownColor.MidnightBlue);
+
         private const int MaxHeaderLength = 50;
         private const int MaxBodyLength = 72;
         private const string HeaderTooLongText = " [HEADER TOO LONG]";
@@ -24,6 +30,12 @@ namespace CommitMessageFormatter
         protected override void OnLoad(EventArgs e)
         {
             SetPositionToTaskbar();
+
+            RtbCommitMessage.BackColor = darkBackground;
+            LblStatus.BackColor = darkBackground;
+            RtbCommitMessage.ForeColor = darkForeground;
+            LblStatus.ForeColor = darkForeground;
+            BackColor = darkSeparatorColor;
 
             LblStatus.Text = "";
 
