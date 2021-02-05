@@ -11,12 +11,6 @@ namespace CommitMessageFormatter
 
     public partial class CommitMessageFormatterDlg : Form
     {
-        //private readonly Color darkBackground = Color.FromArgb(30, 30, 30);
-        //private readonly Color darkForeground =
-        //    Color.FromKnownColor(KnownColor.WhiteSmoke);
-        //private readonly Color darkSeparatorColor =
-        //    Color.FromKnownColor(KnownColor.MidnightBlue);
-
         private const int MaxHeaderLength = 50;
         private const int MaxBodyLength = 72;
         private const string HeaderTooLongText = " [HEADER TOO LONG]";
@@ -30,7 +24,20 @@ namespace CommitMessageFormatter
 
         protected override void OnLoad(EventArgs e)
         {
-            SetPositionToTaskbar();
+            var font = new Font(
+                Settings.Default.FontName,
+                Settings.Default.FontSize);
+
+            var size = TextRenderer.MeasureText(
+                new string(' ', MaxBodyLength),
+                font);
+
+            RtbCommitMessage.Font = font;
+            LblStatus.Font = font;
+            var lineCount = Settings.Default.LineCount;
+            // Add one to the line count fo the status bar
+            // And 3 to the height for the separator
+            Size = new Size(size.Width, (size.Height * (lineCount + 1)) + 3);
 
             RtbCommitMessage.BackColor =
                 Color.FromArgb(Settings.Default.BackgroundColor);
@@ -57,6 +64,8 @@ namespace CommitMessageFormatter
             {
                 LblStatus.Text = "Unable to insert from clipboard.";
             }
+
+            SetPositionToTaskbar();
 
             base.OnLoad(e);
         }

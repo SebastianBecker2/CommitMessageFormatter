@@ -75,14 +75,14 @@ namespace CommitMessageFormatter
             this.RtbCommitMessage.BackColor = System.Drawing.Color.Black;
             this.RtbCommitMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RtbCommitMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RtbCommitMessage.Font = new System.Drawing.Font("Consolas", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.RtbCommitMessage.Font = new System.Drawing.Font("Georgia", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.RtbCommitMessage.ForeColor = System.Drawing.Color.DarkGray;
             this.RtbCommitMessage.Location = new System.Drawing.Point(0, 0);
             this.RtbCommitMessage.Margin = new System.Windows.Forms.Padding(0);
             this.RtbCommitMessage.Name = "RtbCommitMessage";
             this.RtbCommitMessage.Size = new System.Drawing.Size(364, 116);
             this.RtbCommitMessage.TabIndex = 2;
-            this.RtbCommitMessage.Text = "";
+            this.RtbCommitMessage.Text = "111\nlll\nMMM\nqqq\niii";
             this.RtbCommitMessage.WordWrap = false;
             this.RtbCommitMessage.TextChanged += new System.EventHandler(this.RtbCommitMessage_TextChanged);
             // 

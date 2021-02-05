@@ -82,5 +82,41 @@ namespace CommitMessageFormatter.Properties {
                 this["SeparatorColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Consolas")]
+        public string FontName {
+            get {
+                return ((string)(this["FontName"]));
+            }
+            set {
+                this["FontName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        public int FontSize {
+            get {
+                return ((int)(this["FontSize"]));
+            }
+            set {
+                this["FontSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int LineCount {
+            get {
+                return ((int)(this["LineCount"]));
+            }
+            set {
+                this["LineCount"] = value;
+            }
+        }
     }
 }

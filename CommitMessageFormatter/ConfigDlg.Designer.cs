@@ -41,6 +41,12 @@ namespace CommitMessageFormatter
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.NudLineCount = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.NudFontSize = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.CmbFontName = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.pibSeparator = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.pibForeground = new System.Windows.Forms.PictureBox();
@@ -50,6 +56,8 @@ namespace CommitMessageFormatter
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudLineCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudFontSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pibSeparator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pibForeground)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pibBackground)).BeginInit();
@@ -59,7 +67,7 @@ namespace CommitMessageFormatter
             // 
             this.BtnOkay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnOkay.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.BtnOkay.Location = new System.Drawing.Point(114, 184);
+            this.BtnOkay.Location = new System.Drawing.Point(195, 194);
             this.BtnOkay.Name = "BtnOkay";
             this.BtnOkay.Size = new System.Drawing.Size(75, 23);
             this.BtnOkay.TabIndex = 0;
@@ -71,7 +79,7 @@ namespace CommitMessageFormatter
             // 
             this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.BtnCancel.Location = new System.Drawing.Point(195, 184);
+            this.BtnCancel.Location = new System.Drawing.Point(276, 194);
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(75, 23);
             this.BtnCancel.TabIndex = 1;
@@ -82,7 +90,7 @@ namespace CommitMessageFormatter
             // 
             this.ChbShift.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ChbShift.AutoSize = true;
-            this.ChbShift.Location = new System.Drawing.Point(27, 22);
+            this.ChbShift.Location = new System.Drawing.Point(70, 27);
             this.ChbShift.Name = "ChbShift";
             this.ChbShift.Size = new System.Drawing.Size(50, 19);
             this.ChbShift.TabIndex = 2;
@@ -92,7 +100,7 @@ namespace CommitMessageFormatter
             // BtnNewHotkey
             // 
             this.BtnNewHotkey.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.BtnNewHotkey.Location = new System.Drawing.Point(134, 68);
+            this.BtnNewHotkey.Location = new System.Drawing.Point(177, 79);
             this.BtnNewHotkey.Name = "BtnNewHotkey";
             this.BtnNewHotkey.Size = new System.Drawing.Size(75, 23);
             this.BtnNewHotkey.TabIndex = 4;
@@ -104,7 +112,7 @@ namespace CommitMessageFormatter
             // 
             this.LblCurrentButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.LblCurrentButton.AutoSize = true;
-            this.LblCurrentButton.Location = new System.Drawing.Point(121, 35);
+            this.LblCurrentButton.Location = new System.Drawing.Point(164, 46);
             this.LblCurrentButton.Name = "LblCurrentButton";
             this.LblCurrentButton.Size = new System.Drawing.Size(101, 15);
             this.LblCurrentButton.TabIndex = 3;
@@ -115,7 +123,7 @@ namespace CommitMessageFormatter
             // 
             this.ChbWindows.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ChbWindows.AutoSize = true;
-            this.ChbWindows.Location = new System.Drawing.Point(27, 97);
+            this.ChbWindows.Location = new System.Drawing.Point(70, 102);
             this.ChbWindows.Name = "ChbWindows";
             this.ChbWindows.Size = new System.Drawing.Size(75, 19);
             this.ChbWindows.TabIndex = 2;
@@ -126,7 +134,7 @@ namespace CommitMessageFormatter
             // 
             this.ChbAlt.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ChbAlt.AutoSize = true;
-            this.ChbAlt.Location = new System.Drawing.Point(27, 72);
+            this.ChbAlt.Location = new System.Drawing.Point(70, 77);
             this.ChbAlt.Name = "ChbAlt";
             this.ChbAlt.Size = new System.Drawing.Size(41, 19);
             this.ChbAlt.TabIndex = 2;
@@ -137,7 +145,7 @@ namespace CommitMessageFormatter
             // 
             this.ChbControl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ChbControl.AutoSize = true;
-            this.ChbControl.Location = new System.Drawing.Point(27, 47);
+            this.ChbControl.Location = new System.Drawing.Point(70, 52);
             this.ChbControl.Name = "ChbControl";
             this.ChbControl.Size = new System.Drawing.Size(66, 19);
             this.ChbControl.TabIndex = 2;
@@ -154,7 +162,7 @@ namespace CommitMessageFormatter
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(258, 166);
+            this.tabControl1.Size = new System.Drawing.Size(339, 176);
             this.tabControl1.TabIndex = 4;
             // 
             // tabPage1
@@ -168,13 +176,19 @@ namespace CommitMessageFormatter
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(250, 138);
+            this.tabPage1.Size = new System.Drawing.Size(331, 148);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Hotkey";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.NudLineCount);
+            this.tabPage2.Controls.Add(this.label6);
+            this.tabPage2.Controls.Add(this.NudFontSize);
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.CmbFontName);
+            this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.pibSeparator);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.pibForeground);
@@ -184,17 +198,103 @@ namespace CommitMessageFormatter
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(250, 138);
+            this.tabPage2.Size = new System.Drawing.Size(331, 148);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Colors";
+            this.tabPage2.Text = "Colors & Font";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // NudLineCount
+            // 
+            this.NudLineCount.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.NudLineCount.Location = new System.Drawing.Point(241, 95);
+            this.NudLineCount.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.NudLineCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NudLineCount.Name = "NudLineCount";
+            this.NudLineCount.Size = new System.Drawing.Size(42, 23);
+            this.NudLineCount.TabIndex = 11;
+            this.NudLineCount.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(241, 77);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 15);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Line count:";
+            // 
+            // NudFontSize
+            // 
+            this.NudFontSize.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.NudFontSize.Location = new System.Drawing.Point(154, 96);
+            this.NudFontSize.Maximum = new decimal(new int[] {
+            27,
+            0,
+            0,
+            0});
+            this.NudFontSize.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.NudFontSize.Name = "NudFontSize";
+            this.NudFontSize.Size = new System.Drawing.Size(42, 23);
+            this.NudFontSize.TabIndex = 9;
+            this.NudFontSize.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(154, 77);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 15);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Font size:";
+            // 
+            // CmbFontName
+            // 
+            this.CmbFontName.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.CmbFontName.FormattingEnabled = true;
+            this.CmbFontName.Location = new System.Drawing.Point(154, 47);
+            this.CmbFontName.Name = "CmbFontName";
+            this.CmbFontName.Size = new System.Drawing.Size(153, 23);
+            this.CmbFontName.TabIndex = 7;
+            this.CmbFontName.DropDown += new System.EventHandler(this.CmbFontName_DropDown);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(154, 29);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 15);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Font name:";
             // 
             // pibSeparator
             // 
             this.pibSeparator.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pibSeparator.BackColor = System.Drawing.Color.Black;
             this.pibSeparator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pibSeparator.Location = new System.Drawing.Point(111, 84);
+            this.pibSeparator.Location = new System.Drawing.Point(108, 92);
             this.pibSeparator.Name = "pibSeparator";
             this.pibSeparator.Size = new System.Drawing.Size(23, 23);
             this.pibSeparator.TabIndex = 5;
@@ -205,7 +305,7 @@ namespace CommitMessageFormatter
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(45, 88);
+            this.label3.Location = new System.Drawing.Point(42, 96);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 15);
             this.label3.TabIndex = 4;
@@ -216,7 +316,7 @@ namespace CommitMessageFormatter
             this.pibForeground.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pibForeground.BackColor = System.Drawing.Color.Black;
             this.pibForeground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pibForeground.Location = new System.Drawing.Point(111, 55);
+            this.pibForeground.Location = new System.Drawing.Point(108, 63);
             this.pibForeground.Name = "pibForeground";
             this.pibForeground.Size = new System.Drawing.Size(23, 23);
             this.pibForeground.TabIndex = 3;
@@ -227,7 +327,7 @@ namespace CommitMessageFormatter
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(33, 59);
+            this.label2.Location = new System.Drawing.Point(30, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 15);
             this.label2.TabIndex = 2;
@@ -238,7 +338,7 @@ namespace CommitMessageFormatter
             this.pibBackground.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pibBackground.BackColor = System.Drawing.Color.Black;
             this.pibBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pibBackground.Location = new System.Drawing.Point(111, 26);
+            this.pibBackground.Location = new System.Drawing.Point(108, 34);
             this.pibBackground.Name = "pibBackground";
             this.pibBackground.Size = new System.Drawing.Size(23, 23);
             this.pibBackground.TabIndex = 1;
@@ -249,7 +349,7 @@ namespace CommitMessageFormatter
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 30);
+            this.label1.Location = new System.Drawing.Point(28, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 15);
             this.label1.TabIndex = 0;
@@ -261,7 +361,7 @@ namespace CommitMessageFormatter
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.BtnCancel;
-            this.ClientSize = new System.Drawing.Size(282, 219);
+            this.ClientSize = new System.Drawing.Size(363, 229);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.BtnCancel);
             this.Controls.Add(this.BtnOkay);
@@ -273,6 +373,8 @@ namespace CommitMessageFormatter
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudLineCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudFontSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pibSeparator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pibForeground)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pibBackground)).EndInit();
@@ -299,5 +401,11 @@ namespace CommitMessageFormatter
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pibBackground;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox CmbFontName;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown NudFontSize;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown NudLineCount;
+        private System.Windows.Forms.Label label6;
     }
 }

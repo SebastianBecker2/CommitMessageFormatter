@@ -1,7 +1,10 @@
 namespace CommitMessageFormatter
 {
     using System;
+    using System.Diagnostics;
     using System.Drawing;
+    using System.Drawing.Text;
+    using System.Linq;
     using System.Threading;
     using System.Windows.Forms;
     using CommitMessageFormatter.Hotkeys;
@@ -83,6 +86,9 @@ namespace CommitMessageFormatter
                 BackgroundColor = Color.FromArgb(Settings.Default.BackgroundColor),
                 ForegroundColor = Color.FromArgb(Settings.Default.ForegroundColor),
                 SeparatorColor = Color.FromArgb(Settings.Default.SeparatorColor),
+                FontName = Settings.Default.FontName,
+                FontSize = Settings.Default.FontSize,
+                LineCount = Settings.Default.LineCount,
             };
 
             dlg.ShowDialog();
@@ -92,6 +98,9 @@ namespace CommitMessageFormatter
             Settings.Default.BackgroundColor = dlg.BackgroundColor.ToArgb();
             Settings.Default.ForegroundColor = dlg.ForegroundColor.ToArgb();
             Settings.Default.SeparatorColor = dlg.SeparatorColor.ToArgb();
+            Settings.Default.FontName = dlg.FontName;
+            Settings.Default.FontSize = dlg.FontSize;
+            Settings.Default.LineCount = dlg.LineCount;
             Settings.Default.Save();
 
             RegisterHotkey();

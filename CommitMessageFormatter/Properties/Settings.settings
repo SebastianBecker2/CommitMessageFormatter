@@ -17,5 +17,14 @@
     <Setting Name="SeparatorColor" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-15132304</Value>
     </Setting>
+    <Setting Name="FontName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Consolas</Value>
+    </Setting>
+    <Setting Name="FontSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+    <Setting Name="LineCount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

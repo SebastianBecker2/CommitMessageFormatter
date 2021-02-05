@@ -1,7 +1,11 @@
 namespace CommitMessageFormatter
 {
     using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Drawing;
+    using System.Drawing.Text;
+    using System.Linq;
     using System.Windows.Forms;
     using CommitMessageFormatter.Hotkeys;
 
@@ -15,6 +19,10 @@ namespace CommitMessageFormatter
         public Color ForegroundColor { get; set; }
         public Color SeparatorColor { get; set; }
 
+        public string FontName { get; set; }
+        public int FontSize { get; set; }
+        public int LineCount { get; set; }
+
         private string currentHotkeyLabel;
 
         public ConfigDlg() => InitializeComponent();
@@ -23,11 +31,15 @@ namespace CommitMessageFormatter
         {
             currentHotkeyLabel = LblCurrentButton.Text;
 
+            UpdateCurrentHotkey(Key, Modifier);
+
             pibBackground.BackColor = BackgroundColor;
             pibForeground.BackColor = ForegroundColor;
             pibSeparator.BackColor = SeparatorColor;
 
-            UpdateCurrentHotkey(Key, Modifier);
+            CmbFontName.Text = FontName;
+            NudFontSize.Value = FontSize;
+            NudLineCount.Value = LineCount;
 
             base.OnLoad(e);
         }
@@ -84,6 +96,10 @@ namespace CommitMessageFormatter
             BackgroundColor = pibBackground.BackColor;
             ForegroundColor = pibForeground.BackColor;
             SeparatorColor = pibSeparator.BackColor;
+
+            FontName = CmbFontName.Text;
+            FontSize = (int)NudFontSize.Value;
+            LineCount = (int)NudLineCount.Value;
         }
 
         private void PictureBox_Click(object sender, EventArgs e)
@@ -101,6 +117,31 @@ namespace CommitMessageFormatter
                 return;
             }
             pib.BackColor = colorPicker.Color;
+        }
+
+        private static IEnumerable<string> GetMonospacedFonts()
+        {
+            var installedFontCollection = new InstalledFontCollection();
+            var fontNames =
+                installedFontCollection.Families.Select(f => f.Name);
+            var testChars =
+                new char[] { 'm', 'M', 'i', 'I', 'l', 'L', '1', '2', 'w', 'W' };
+            return fontNames.Where(f =>
+                    testChars
+                        .Select(c => TextRenderer.MeasureText(
+                            new string(c, 10),
+                            new Font(f, 10)).Width)
+                        .Distinct()
+                        .Count() == 1);
+        }
+
+        private void CmbFontName_DropDown(object sender, EventArgs e)
+        {
+            if (CmbFontName.Items.Count > 0)
+            {
+                return;
+            }
+            CmbFontName.Items.AddRange(GetMonospacedFonts().ToArray());
         }
     }
 }
