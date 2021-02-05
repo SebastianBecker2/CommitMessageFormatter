@@ -46,5 +46,41 @@ namespace CommitMessageFormatter.Properties {
                 this["HotkeyModifier"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-14803426")]
+        public int BackgroundColor {
+            get {
+                return ((int)(this["BackgroundColor"]));
+            }
+            set {
+                this["BackgroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-657931")]
+        public int ForegroundColor {
+            get {
+                return ((int)(this["ForegroundColor"]));
+            }
+            set {
+                this["ForegroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-15132304")]
+        public int SeparatorColor {
+            get {
+                return ((int)(this["SeparatorColor"]));
+            }
+            set {
+                this["SeparatorColor"] = value;
+            }
+        }
     }
 }

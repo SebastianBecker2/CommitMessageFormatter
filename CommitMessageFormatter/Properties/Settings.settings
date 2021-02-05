@@ -1,4 +1,4 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CommitMessageFormatter.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
@@ -7,6 +7,15 @@
     </Setting>
     <Setting Name="HotkeyModifier" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="BackgroundColor" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-14803426</Value>
+    </Setting>
+    <Setting Name="ForegroundColor" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-657931</Value>
+    </Setting>
+    <Setting Name="SeparatorColor" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-15132304</Value>
     </Setting>
   </Settings>
 </SettingsFile>

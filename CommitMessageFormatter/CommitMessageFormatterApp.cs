@@ -1,6 +1,7 @@
 namespace CommitMessageFormatter
 {
     using System;
+    using System.Drawing;
     using System.Threading;
     using System.Windows.Forms;
     using CommitMessageFormatter.Hotkeys;
@@ -73,16 +74,26 @@ namespace CommitMessageFormatter
         public void ShowConfig()
         {
             HotkeyManager.RemoveAllHotkeys();
+
             using var dlg = new ConfigDlg
             {
                 Key = (Keys)Settings.Default.HotkeyButton,
                 Modifier = (ModifierKeys)Settings.Default.HotkeyModifier,
                 HotkeyManager = HotkeyManager,
+                BackgroundColor = Color.FromArgb(Settings.Default.BackgroundColor),
+                ForegroundColor = Color.FromArgb(Settings.Default.ForegroundColor),
+                SeparatorColor = Color.FromArgb(Settings.Default.SeparatorColor),
             };
+
             dlg.ShowDialog();
+
             Settings.Default.HotkeyButton = (int)dlg.Key;
             Settings.Default.HotkeyModifier = (int)dlg.Modifier;
+            Settings.Default.BackgroundColor = dlg.BackgroundColor.ToArgb();
+            Settings.Default.ForegroundColor = dlg.ForegroundColor.ToArgb();
+            Settings.Default.SeparatorColor = dlg.SeparatorColor.ToArgb();
             Settings.Default.Save();
+
             RegisterHotkey();
         }
 

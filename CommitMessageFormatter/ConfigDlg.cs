@@ -1,6 +1,7 @@
 namespace CommitMessageFormatter
 {
     using System;
+    using System.Drawing;
     using System.Windows.Forms;
     using CommitMessageFormatter.Hotkeys;
 
@@ -10,6 +11,10 @@ namespace CommitMessageFormatter
         public ModifierKeys Modifier { get; set; } = Hotkeys.ModifierKeys.None;
         public HotkeyManager HotkeyManager { get; set; }
 
+        public Color BackgroundColor { get; set; }
+        public Color ForegroundColor { get; set; }
+        public Color SeparatorColor { get; set; }
+
         private string currentHotkeyLabel;
 
         public ConfigDlg() => InitializeComponent();
@@ -17,6 +22,10 @@ namespace CommitMessageFormatter
         protected override void OnLoad(EventArgs e)
         {
             currentHotkeyLabel = LblCurrentButton.Text;
+
+            pibBackground.BackColor = BackgroundColor;
+            pibForeground.BackColor = ForegroundColor;
+            pibSeparator.BackColor = SeparatorColor;
 
             UpdateCurrentHotkey(Key, Modifier);
 
@@ -71,6 +80,27 @@ namespace CommitMessageFormatter
             {
                 Modifier |= Hotkeys.ModifierKeys.Windows;
             }
+
+            BackgroundColor = pibBackground.BackColor;
+            ForegroundColor = pibForeground.BackColor;
+            SeparatorColor = pibSeparator.BackColor;
+        }
+
+        private void PictureBox_Click(object sender, EventArgs e)
+        {
+            if (sender is not PictureBox pib)
+            {
+                return;
+            }
+            using var colorPicker = new ColorDialog
+            {
+                Color = pib.BackColor
+            };
+            if (colorPicker.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            pib.BackColor = colorPicker.Color;
         }
     }
 }
