@@ -84,24 +84,34 @@ namespace CommitMessageFormatter
             switch (Taskbar.Position)
             {
                 case TaskbarPosition.Left:
-                    Location = Taskbar.CurrentBounds.Location + Taskbar.CurrentBounds.Size;
+                    Location = Taskbar.CurrentBounds.Location +
+                        Taskbar.CurrentBounds.Size;
                     Location = new Point(Location.X, Location.Y - Size.Height);
                     break;
+
                 case TaskbarPosition.Top:
-                    Location = Taskbar.CurrentBounds.Location + Taskbar.CurrentBounds.Size;
+                    Location = Taskbar.CurrentBounds.Location +
+                        Taskbar.CurrentBounds.Size;
                     Location = new Point(Location.X - Size.Width, Location.Y);
                     break;
+
                 case TaskbarPosition.Right:
                     Location = Taskbar.CurrentBounds.Location - Size;
-                    Location = new Point(Location.X, Location.Y + Taskbar.CurrentBounds.Height);
+                    Location = new Point(
+                        Location.X,
+                        Location.Y + Taskbar.CurrentBounds.Height);
                     break;
+
                 case TaskbarPosition.Bottom:
                     Location = Taskbar.CurrentBounds.Location - Size;
-                    Location = new Point(Location.X + Taskbar.CurrentBounds.Width, Location.Y);
+                    Location = new Point(
+                        Location.X + Taskbar.CurrentBounds.Width,
+                        Location.Y);
                     break;
 
                 case TaskbarPosition.Unknown:
                 default:
+                    StartPosition = FormStartPosition.WindowsDefaultLocation;
                     break;
             }
         }
