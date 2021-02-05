@@ -6,8 +6,6 @@ namespace CommitMessageFormatter
     using CommitMessageFormatter.Hotkeys;
     using CommitMessageFormatter.Properties;
 
-    // Properly implement ApplicationContext
-
     internal class CommitMessageFormatterApp : ApplicationContext, IDisposable
     {
         private NotifyIcon NotifyIcon { get; set; }
@@ -26,18 +24,17 @@ namespace CommitMessageFormatter
             NotifyIcon.ContextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
                 new ToolStripMenuItem("Show", null, (s,e) => ShowDialog()),
-                //new ToolStripMenuItem("Config", null, (s,e) => ShowDialog()),
+                new ToolStripMenuItem("Config", null, (s,e) => ShowConfig()),
                 new ToolStripSeparator(),
                 new ToolStripMenuItem("Close", null, (s,e) => ExitThread()),
             });
             NotifyIcon.DoubleClick += (s, e) => ShowDialog();
 
             HotkeyManager = new HotkeyManager();
-            HotkeyManager.AddHotkey(
-                Keys.F10,
-                ModifierKeys.Alt | ModifierKeys.Shift);
+            RegisterHotkey();
             HotkeyManager.HotkeyPressed += (s, e) =>
             {
+                System.Diagnostics.Debug.Print("HotkeyPressed");
                 if (Interlocked.Exchange(ref isDialogOpen, 1) > 0)
                 {
                     return;
@@ -53,6 +50,16 @@ namespace CommitMessageFormatter
             };
         }
 
+        private void RegisterHotkey()
+        {
+            var key = (Keys)Settings.Default.HotkeyButton;
+            if (key != Keys.None)
+            {
+                var modifierKeys = (ModifierKeys)Settings.Default.HotkeyModifier;
+                HotkeyManager.AddHotkey(key, modifierKeys);
+            }
+        }
+
         public void ShowDialog()
         {
             if (Interlocked.Exchange(ref isDialogOpen, 1) > 0)
@@ -62,6 +69,22 @@ namespace CommitMessageFormatter
             using var dlg = new CommitMessageFormatterDlg();
             dlg.ShowDialog();
             isDialogOpen = 0;
+        }
+
+        public void ShowConfig()
+        {
+            HotkeyManager.RemoveAllHotkeys();
+            using var dlg = new ConfigDlg
+            {
+                Key = (Keys)Settings.Default.HotkeyButton,
+                Modifier = (ModifierKeys)Settings.Default.HotkeyModifier,
+                HotkeyManager = HotkeyManager,
+            };
+            dlg.ShowDialog();
+            Settings.Default.HotkeyButton = (int)dlg.Key;
+            Settings.Default.HotkeyModifier = (int)dlg.Modifier;
+            Settings.Default.Save();
+            RegisterHotkey();
         }
 
         private bool disposedValue;
@@ -77,7 +100,6 @@ namespace CommitMessageFormatter
             {
                 HotkeyManager?.Dispose();
                 NotifyIcon?.Dispose();
-                //Dlg?.Dispose();
             }
 
             disposedValue = true;

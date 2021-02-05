@@ -2,7 +2,7 @@ namespace CommitMessageFormatter.Hotkeys
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
+    using System.Linq;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
@@ -90,6 +90,16 @@ namespace CommitMessageFormatter.Hotkeys
             IntPtr keyPressEventType,
             KeyboardLowLevelInputEvent keyboardEvent);
 
+        public event EventHandler<KeyPressedEventArgs> KeyPressed;
+        protected virtual void OnKeyPressed(
+            Keys key,
+            ModifierKeys modifierKeys) =>
+            KeyPressed?.Invoke(this, new KeyPressedEventArgs
+            {
+                PressedKey = key,
+                ModifierKeys = modifierKeys,
+            });
+
         public event EventHandler<HotkeyPressedEventArgs> HotkeyPressed;
         protected virtual void OnHotkeyPressed(
             Keys key,
@@ -148,7 +158,10 @@ namespace CommitMessageFormatter.Hotkeys
             return result;
         }
 
-        private void UpdateModifierKeys(
+        public void RemoveAllHotkeys() =>
+            RegisteredHotkeys = new HashSet<Hotkey>();
+
+        private bool UpdateModifierKeys(
             IntPtr keyPressEventType,
             Keys pressedKey)
         {
@@ -173,25 +186,26 @@ namespace CommitMessageFormatter.Hotkeys
                 case Keys.LShiftKey:
                 case Keys.RShiftKey:
                     applyModifier(ModifierKeys.Shift);
-                    break;
+                    return true;
 
                 case Keys.ControlKey:
                 case Keys.LControlKey:
                 case Keys.RControlKey:
                     applyModifier(ModifierKeys.Control);
-                    break;
+                    return true;
 
                 case Keys.Menu:
                 case Keys.LMenu:
                 case Keys.RMenu:
                     applyModifier(ModifierKeys.Alt);
-                    break;
+                    return true;
 
                 case Keys.LWin:
                 case Keys.RWin:
                     applyModifier(ModifierKeys.Windows);
-                    break;
+                    return true;
             }
+            return false;
         }
 
         private IntPtr LowLevelKeyboardCallback(
@@ -212,9 +226,12 @@ namespace CommitMessageFormatter.Hotkeys
 
             try
             {
-                UpdateModifierKeys(
+                if (UpdateModifierKeys(
                     keyPressEventType,
-                    keyboardEvent.VirtualKeyCode);
+                    keyboardEvent.VirtualKeyCode))
+                {
+                    return hookResult;
+                }
 
                 // We only care about key down
 #pragma warning disable IDE0078 // Use pattern matching
@@ -222,15 +239,24 @@ namespace CommitMessageFormatter.Hotkeys
                     || keyPressEventType == (IntPtr)KeyPressEventType.SysKeyDown)
 #pragma warning restore IDE0078 // Use pattern matching
                 {
+                    OnKeyPressed(
+                        keyboardEvent.VirtualKeyCode,
+                        CurrentModifierKeys);
+
                     var localRef = RegisteredHotkeys;
-                    var hotkey = new Hotkey
+                    if (!localRef.Any())
+                    {
+                        return hookResult;
+                    }
+                    if (localRef.Contains(new Hotkey
                     {
                         Key = keyboardEvent.VirtualKeyCode,
                         ModifierKeys = CurrentModifierKeys,
-                    };
-                    if (localRef.Contains(hotkey))
+                    }))
                     {
-                        OnHotkeyPressed(hotkey.Key, CurrentModifierKeys);
+                        OnHotkeyPressed(
+                            keyboardEvent.VirtualKeyCode,
+                            CurrentModifierKeys);
                     }
                 }
             }
