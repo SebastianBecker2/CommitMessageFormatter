@@ -1,6 +1,7 @@
 namespace CommitMessageFormatter
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Drawing;
     using System.Linq;
@@ -20,6 +21,9 @@ namespace CommitMessageFormatter
 #pragma warning disable CA1805 // Do not initialize unnecessarily
         private bool isReformatting = false;
 #pragma warning restore CA1805 // Do not initialize unnecessarily
+        private Dictionary<string, bool> SpellcheckedWords =
+            new Dictionary<string, bool>();
+
         public CommitMessageFormatterDlg() => InitializeComponent();
 
         protected override void OnLoad(EventArgs e)
@@ -190,37 +194,48 @@ namespace CommitMessageFormatter
                     @"dictionary\en_US.aff");
 
             var words = RtbCommitMessage.Text
-                .Split(' ', '.', ',', ';', '-', '_', '\n')
+                .Split(' ', '.', ',', ';', '-', '_', '\n', ']', '[', ':')
                 .Where(w => !string.IsNullOrWhiteSpace(w));
 
             foreach (var word in words)
             {
-                if (dictionary.Check(word))
+                if (SpellcheckedWords.TryGetValue(word, out var isCorrect))
                 {
-                    continue;
-                }
-
-                var index = -1;
-                while (true)
-                {
-                    index = RtbCommitMessage.Text.IndexOf(word, index + 1);
-                    if (index == -1)
+                    if (isCorrect)
                     {
-                        break;
+                        continue;
                     }
-                    RtbCommitMessage.SelectionStart = index;
-                    RtbCommitMessage.SelectionLength = word.Length;
-                    RtbCommitMessage.SelectionFont = new Font(
-                        RtbCommitMessage.SelectionFont,
-                        FontStyle.Underline);
+                    UnderlineWord(word);
                 }
+                else
+                {
+                    if (dictionary.Check(word))
+                    {
+                        SpellcheckedWords[word] = true;
+                        continue;
+                    }
 
-                //Debug.Print($"Wrong much? {word}");
-                //var suggestions = dictionary.Suggest(word);
-                //foreach (var suggestion in suggestions)
-                //{
-                //    Debug.Print($"What about: {suggestion}");
-                //}
+                    SpellcheckedWords[word] = false;
+                    UnderlineWord(word);
+                }
+            }
+        }
+
+        private void UnderlineWord(string word)
+        {
+            var index = -1;
+            while (true)
+            {
+                index = RtbCommitMessage.Text.IndexOf(word, index + 1);
+                if (index == -1)
+                {
+                    break;
+                }
+                RtbCommitMessage.SelectionStart = index;
+                RtbCommitMessage.SelectionLength = word.Length;
+                RtbCommitMessage.SelectionFont = new Font(
+                    RtbCommitMessage.SelectionFont,
+                    FontStyle.Underline);
             }
         }
 
@@ -232,18 +247,18 @@ namespace CommitMessageFormatter
             }
             isReformatting = true;
 
+            var selectionStart = RtbCommitMessage.SelectionStart;
+            var selectionLength = RtbCommitMessage.SelectionLength;
             try
             {
-                var selectionStart = RtbCommitMessage.SelectionStart;
-                var selectionLength = RtbCommitMessage.SelectionLength;
                 RtbCommitMessage.Text =
                     FormattingCommitMessage(RtbCommitMessage.Text);
                 CheckSpelling();
-                RtbCommitMessage.SelectionStart = selectionStart;
-                RtbCommitMessage.SelectionLength = selectionLength;
             }
             finally
             {
+                RtbCommitMessage.SelectionStart = selectionStart;
+                RtbCommitMessage.SelectionLength = selectionLength;
                 isReformatting = false;
                 TimClipboard.Enabled = true;
             }
