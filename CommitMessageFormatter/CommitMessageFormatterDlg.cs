@@ -1,13 +1,13 @@
-using System;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using WeCantSpell.Hunspell;
-
 namespace CommitMessageFormatter
 {
+    using System;
+    using System.Data;
+    using System.Drawing;
+    using System.Linq;
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+    using WeCantSpell.Hunspell;
+
     public partial class CommitMessageFormatterDlg : Form
     {
         private const int MaxHeaderLength = 50;
@@ -19,13 +19,12 @@ namespace CommitMessageFormatter
 #pragma warning disable CA1805 // Do not initialize unnecessarily
         private bool isReformatting = false;
 #pragma warning restore CA1805 // Do not initialize unnecessarily
-        public CommitMessageFormatterDlg()
-        {
-            InitializeComponent();
-        }
+        public CommitMessageFormatterDlg() => InitializeComponent();
 
         protected override void OnLoad(EventArgs e)
         {
+            SetPositionToTaskbar();
+
             LblStatus.Text = "";
 
             try
@@ -47,13 +46,52 @@ namespace CommitMessageFormatter
 
         protected override void OnShown(EventArgs e)
         {
+            // Brute force the dialog to frontmostestest topmostest
             WindowState = FormWindowState.Minimized;
             Show();
             WindowState = FormWindowState.Normal;
             BringToFront();
             Activate();
             Focus();
+
             base.OnShown(e);
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+
+            base.OnKeyDown(e);
+        }
+
+        private void SetPositionToTaskbar()
+        {
+            switch (Taskbar.Position)
+            {
+                case TaskbarPosition.Left:
+                    Location = Taskbar.CurrentBounds.Location + Taskbar.CurrentBounds.Size;
+                    Location = new Point(Location.X, Location.Y - Size.Height);
+                    break;
+                case TaskbarPosition.Top:
+                    Location = Taskbar.CurrentBounds.Location + Taskbar.CurrentBounds.Size;
+                    Location = new Point(Location.X - Size.Width, Location.Y);
+                    break;
+                case TaskbarPosition.Right:
+                    Location = Taskbar.CurrentBounds.Location - Size;
+                    Location = new Point(Location.X, Location.Y + Taskbar.CurrentBounds.Height);
+                    break;
+                case TaskbarPosition.Bottom:
+                    Location = Taskbar.CurrentBounds.Location - Size;
+                    Location = new Point(Location.X + Taskbar.CurrentBounds.Width, Location.Y);
+                    break;
+
+                case TaskbarPosition.Unknown:
+                default:
+                    break;
+            }
         }
 
         private static string FormattingCommitMessage(string message)
@@ -194,13 +232,6 @@ namespace CommitMessageFormatter
             {
                 TimClipboard.Enabled = false;
             }
-        }
-
-        private void CommitMessageFormatterDlg_FormClosing(object sender,
-            FormClosingEventArgs e)
-        {
-            e.Cancel = true;
-            Visible = false;
         }
     }
 }

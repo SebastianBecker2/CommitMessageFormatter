@@ -67,6 +67,7 @@ namespace CommitMessageFormatter
             // 
             this.RtbCommitMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RtbCommitMessage.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.RtbCommitMessage.ForeColor = System.Drawing.SystemColors.WindowText;
             this.RtbCommitMessage.Location = new System.Drawing.Point(3, 3);
             this.RtbCommitMessage.Name = "RtbCommitMessage";
             this.RtbCommitMessage.Size = new System.Drawing.Size(523, 187);
@@ -86,13 +87,14 @@ namespace CommitMessageFormatter
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(529, 216);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CommitMessageFormatterDlg";
             this.Text = "Commit Message Formatter";
             this.TopMost = true;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CommitMessageFormatterDlg_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
