@@ -74,41 +74,51 @@ namespace CommitMessageFormatter
         public void ShowConfig()
         {
             HotkeyManager.RemoveAllHotkeys();
-
-            using var dlg = new ConfigDlg
+            try
             {
-                Key = (Keys)Settings.Default.HotkeyButton,
-                Modifier = (ModifierKeys)Settings.Default.HotkeyModifier,
-                HotkeyManager = HotkeyManager,
-                BackgroundColor = Color.FromArgb(Settings.Default.BackgroundColor),
-                ForegroundColor = Color.FromArgb(Settings.Default.ForegroundColor),
-                SeparatorColor = Color.FromArgb(Settings.Default.SeparatorColor),
-                FontName = Settings.Default.FontName,
-                FontSize = Settings.Default.FontSize,
-                LineCount = Settings.Default.LineCount,
-                MaxHeaderLength = Settings.Default.MaxHeaderLength,
-                MaxBodyLength = Settings.Default.MaxBodyLength,
-                HeaderToBodySeparatorLines =
-                    Settings.Default.HeaderToBodySeparatorLines,
-            };
+                using var dlg = new ConfigDlg
+                {
+                    Key = (Keys)Settings.Default.HotkeyButton,
+                    Modifier = (ModifierKeys)Settings.Default.HotkeyModifier,
+                    HotkeyManager = HotkeyManager,
+                    BackgroundColor =
+                        Color.FromArgb(Settings.Default.BackgroundColor),
+                    ForegroundColor =
+                        Color.FromArgb(Settings.Default.ForegroundColor),
+                    SeparatorColor =
+                        Color.FromArgb(Settings.Default.SeparatorColor),
+                    FontName = Settings.Default.FontName,
+                    FontSize = Settings.Default.FontSize,
+                    LineCount = Settings.Default.LineCount,
+                    MaxHeaderLength = Settings.Default.MaxHeaderLength,
+                    MaxBodyLength = Settings.Default.MaxBodyLength,
+                    HeaderToBodySeparatorLines =
+                        Settings.Default.HeaderToBodySeparatorLines,
+                };
 
-            dlg.ShowDialog();
+                if (dlg.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
 
-            Settings.Default.HotkeyButton = (int)dlg.Key;
-            Settings.Default.HotkeyModifier = (int)dlg.Modifier;
-            Settings.Default.BackgroundColor = dlg.BackgroundColor.ToArgb();
-            Settings.Default.ForegroundColor = dlg.ForegroundColor.ToArgb();
-            Settings.Default.SeparatorColor = dlg.SeparatorColor.ToArgb();
-            Settings.Default.FontName = dlg.FontName;
-            Settings.Default.FontSize = dlg.FontSize;
-            Settings.Default.LineCount = dlg.LineCount;
-            Settings.Default.MaxHeaderLength = dlg.MaxHeaderLength;
-            Settings.Default.MaxBodyLength = dlg.MaxBodyLength;
-            Settings.Default.HeaderToBodySeparatorLines =
-                dlg.HeaderToBodySeparatorLines;
-            Settings.Default.Save();
-
-            RegisterHotkey();
+                Settings.Default.HotkeyButton = (int)dlg.Key;
+                Settings.Default.HotkeyModifier = (int)dlg.Modifier;
+                Settings.Default.BackgroundColor = dlg.BackgroundColor.ToArgb();
+                Settings.Default.ForegroundColor = dlg.ForegroundColor.ToArgb();
+                Settings.Default.SeparatorColor = dlg.SeparatorColor.ToArgb();
+                Settings.Default.FontName = dlg.FontName;
+                Settings.Default.FontSize = dlg.FontSize;
+                Settings.Default.LineCount = dlg.LineCount;
+                Settings.Default.MaxHeaderLength = dlg.MaxHeaderLength;
+                Settings.Default.MaxBodyLength = dlg.MaxBodyLength;
+                Settings.Default.HeaderToBodySeparatorLines =
+                    dlg.HeaderToBodySeparatorLines;
+                Settings.Default.Save();
+            }
+            finally
+            {
+                RegisterHotkey();
+            }
         }
 
         private bool disposedValue;
