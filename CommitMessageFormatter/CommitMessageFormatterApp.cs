@@ -86,6 +86,10 @@ namespace CommitMessageFormatter
                 FontName = Settings.Default.FontName,
                 FontSize = Settings.Default.FontSize,
                 LineCount = Settings.Default.LineCount,
+                MaxHeaderLength = Settings.Default.MaxHeaderLength,
+                MaxBodyLength = Settings.Default.MaxBodyLength,
+                HeaderToBodySeparatorLines =
+                    Settings.Default.HeaderToBodySeparatorLines,
             };
 
             dlg.ShowDialog();
@@ -98,6 +102,10 @@ namespace CommitMessageFormatter
             Settings.Default.FontName = dlg.FontName;
             Settings.Default.FontSize = dlg.FontSize;
             Settings.Default.LineCount = dlg.LineCount;
+            Settings.Default.MaxHeaderLength = dlg.MaxHeaderLength;
+            Settings.Default.MaxBodyLength = dlg.MaxBodyLength;
+            Settings.Default.HeaderToBodySeparatorLines =
+                dlg.HeaderToBodySeparatorLines;
             Settings.Default.Save();
 
             RegisterHotkey();

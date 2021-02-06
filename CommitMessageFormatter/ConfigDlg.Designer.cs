@@ -53,6 +53,13 @@ namespace CommitMessageFormatter
             this.label2 = new System.Windows.Forms.Label();
             this.pibBackground = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.NudMaxHeaderLength = new System.Windows.Forms.NumericUpDown();
+            this.NudMaxBodyLength = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.NudHeaderToBodySeparatorLines = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -61,6 +68,10 @@ namespace CommitMessageFormatter
             ((System.ComponentModel.ISupportInitialize)(this.pibSeparator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pibForeground)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pibBackground)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudMaxHeaderLength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudMaxBodyLength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudHeaderToBodySeparatorLines)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnOkay
@@ -159,6 +170,7 @@ namespace CommitMessageFormatter
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -355,6 +367,110 @@ namespace CommitMessageFormatter
             this.label1.TabIndex = 0;
             this.label1.Text = "Background:";
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.NudHeaderToBodySeparatorLines);
+            this.tabPage3.Controls.Add(this.label9);
+            this.tabPage3.Controls.Add(this.NudMaxBodyLength);
+            this.tabPage3.Controls.Add(this.label8);
+            this.tabPage3.Controls.Add(this.NudMaxHeaderLength);
+            this.tabPage3.Controls.Add(this.label7);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(331, 148);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Rules";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(95, 10);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(141, 15);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Maximum header length:";
+            // 
+            // NudMaxHeaderLength
+            // 
+            this.NudMaxHeaderLength.Location = new System.Drawing.Point(95, 28);
+            this.NudMaxHeaderLength.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.NudMaxHeaderLength.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NudMaxHeaderLength.Name = "NudMaxHeaderLength";
+            this.NudMaxHeaderLength.Size = new System.Drawing.Size(47, 23);
+            this.NudMaxHeaderLength.TabIndex = 1;
+            this.NudMaxHeaderLength.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // NudMaxBodyLength
+            // 
+            this.NudMaxBodyLength.Location = new System.Drawing.Point(95, 72);
+            this.NudMaxBodyLength.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.NudMaxBodyLength.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NudMaxBodyLength.Name = "NudMaxBodyLength";
+            this.NudMaxBodyLength.Size = new System.Drawing.Size(47, 23);
+            this.NudMaxBodyLength.TabIndex = 3;
+            this.NudMaxBodyLength.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(95, 54);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(132, 15);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Maximum body length:";
+            // 
+            // NudHeaderToBodySeparatorLines
+            // 
+            this.NudHeaderToBodySeparatorLines.Location = new System.Drawing.Point(95, 116);
+            this.NudHeaderToBodySeparatorLines.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.NudHeaderToBodySeparatorLines.Name = "NudHeaderToBodySeparatorLines";
+            this.NudHeaderToBodySeparatorLines.Size = new System.Drawing.Size(47, 23);
+            this.NudHeaderToBodySeparatorLines.TabIndex = 5;
+            this.NudHeaderToBodySeparatorLines.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(95, 98);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(171, 15);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Header to body separator lines:";
+            // 
             // ConfigDlg
             // 
             this.AcceptButton = this.BtnOkay;
@@ -378,6 +494,11 @@ namespace CommitMessageFormatter
             ((System.ComponentModel.ISupportInitialize)(this.pibSeparator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pibForeground)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pibBackground)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudMaxHeaderLength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudMaxBodyLength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudHeaderToBodySeparatorLines)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -407,5 +528,13 @@ namespace CommitMessageFormatter
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown NudLineCount;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.NumericUpDown NudMaxHeaderLength;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown NudHeaderToBodySeparatorLines;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown NudMaxBodyLength;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown Nud;
     }
 }

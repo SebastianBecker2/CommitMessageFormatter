@@ -22,6 +22,10 @@ namespace CommitMessageFormatter
         public int FontSize { get; set; }
         public int LineCount { get; set; }
 
+        public int MaxHeaderLength { get; set; }
+        public int MaxBodyLength { get; set; }
+        public int HeaderToBodySeparatorLines { get; set; }
+
         private string currentHotkeyLabel;
 
         public ConfigDlg() => InitializeComponent();
@@ -39,6 +43,10 @@ namespace CommitMessageFormatter
             CmbFontName.Text = FontName;
             NudFontSize.Value = FontSize;
             NudLineCount.Value = LineCount;
+
+            NudMaxHeaderLength.Value = MaxHeaderLength;
+            NudMaxBodyLength.Value = MaxBodyLength;
+            NudHeaderToBodySeparatorLines.Value = HeaderToBodySeparatorLines;
 
             base.OnLoad(e);
         }
@@ -99,6 +107,11 @@ namespace CommitMessageFormatter
             FontName = CmbFontName.Text;
             FontSize = (int)NudFontSize.Value;
             LineCount = (int)NudLineCount.Value;
+
+            MaxHeaderLength = (int)NudMaxHeaderLength.Value;
+            MaxBodyLength = (int)NudMaxBodyLength.Value;
+            HeaderToBodySeparatorLines =
+                (int)NudHeaderToBodySeparatorLines.Value;
         }
 
         private void PictureBox_Click(object sender, EventArgs e)

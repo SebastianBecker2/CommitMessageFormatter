@@ -13,8 +13,8 @@ namespace CommitMessageFormatter
 
     public partial class CommitMessageFormatterDlg : Form
     {
-        private const int MaxHeaderLength = 50;
-        private const int MaxBodyLength = 72;
+        //private const int MaxHeaderLength = 50;
+        //private const int MaxBodyLength = 72;
         private const string HeaderTooLongText = " [HEADER TOO LONG]";
         // Since RichTextBox is forcing every \r\n to \n
         private const string ActualNewLine = "\n";
@@ -34,7 +34,7 @@ namespace CommitMessageFormatter
                 Settings.Default.FontSize);
 
             var size = TextRenderer.MeasureText(
-                new string(' ', MaxBodyLength),
+                new string(' ', Settings.Default.MaxBodyLength),
                 font);
 
             RtbCommitMessage.Font = font;
@@ -137,12 +137,14 @@ namespace CommitMessageFormatter
 
         private static string FormattingCommitMessage(string message)
         {
-            var endOfHeader = message.IndexOf(ActualNewLine);
+            var endOfHeader = message.IndexOf(
+                ActualNewLine,
+                StringComparison.InvariantCulture);
             // If it's header only
             if (endOfHeader == -1)
             {
                 message = message.Replace(HeaderTooLongText, "");
-                if (message.Length > MaxHeaderLength)
+                if (message.Length > Settings.Default.MaxHeaderLength)
                 {
                     return message + HeaderTooLongText;
                 }
@@ -153,16 +155,26 @@ namespace CommitMessageFormatter
                 .Substring(0, endOfHeader)
                 .Replace(HeaderTooLongText, "");
             ;
-            if (formatted.Length > MaxHeaderLength)
+            if (formatted.Length > Settings.Default.MaxHeaderLength)
             {
                 formatted += HeaderTooLongText;
             }
-            formatted += ActualNewLine + ActualNewLine;
+            formatted += ActualNewLine;
 
+            // Add separator lines between header and body
+            foreach (var _ in
+                Enumerable.Range(0, Settings.Default.HeaderToBodySeparatorLines))
+            {
+                formatted += ActualNewLine;
+            }
+
+            // Skip new lines in original text until we get to the body
             do
             {
                 endOfHeader += ActualNewLine.Length;
-            } while (message[endOfHeader..].StartsWith(ActualNewLine));
+            }
+            while (message[endOfHeader..]
+                .StartsWith(ActualNewLine, StringComparison.InvariantCulture));
 
             var words = message[endOfHeader..]
                 .Replace(ActualNewLine, " ")
@@ -171,7 +183,8 @@ namespace CommitMessageFormatter
             var line = "";
             foreach (var word in words)
             {
-                if (line.Any() && (line + " " + word).Length > MaxBodyLength)
+                if (line.Any()
+                    && (line + " " + word).Length > Settings.Default.MaxBodyLength)
                 {
                     formatted += line + ActualNewLine;
                     line = "";

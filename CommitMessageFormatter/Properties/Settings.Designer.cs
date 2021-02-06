@@ -118,5 +118,41 @@ namespace CommitMessageFormatter.Properties {
                 this["LineCount"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int MaxHeaderLength {
+            get {
+                return ((int)(this["MaxHeaderLength"]));
+            }
+            set {
+                this["MaxHeaderLength"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("72")]
+        public int MaxBodyLength {
+            get {
+                return ((int)(this["MaxBodyLength"]));
+            }
+            set {
+                this["MaxBodyLength"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int HeaderToBodySeparatorLines {
+            get {
+                return ((int)(this["HeaderToBodySeparatorLines"]));
+            }
+            set {
+                this["HeaderToBodySeparatorLines"] = value;
+            }
+        }
     }
 }
