@@ -13,8 +13,6 @@ namespace CommitMessageFormatter
 
     public partial class CommitMessageFormatterDlg : Form
     {
-        //private const int MaxHeaderLength = 50;
-        //private const int MaxBodyLength = 72;
         private const string HeaderTooLongText = " [HEADER TOO LONG]";
         // Since RichTextBox is forcing every \r\n to \n
         private const string ActualNewLine = "\n";
