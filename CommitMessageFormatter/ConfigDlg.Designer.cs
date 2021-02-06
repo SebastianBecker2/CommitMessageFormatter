@@ -535,6 +535,5 @@ namespace CommitMessageFormatter
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown NudMaxBodyLength;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown Nud;
     }
 }

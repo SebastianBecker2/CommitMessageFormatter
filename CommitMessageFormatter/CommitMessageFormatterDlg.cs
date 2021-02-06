@@ -241,7 +241,11 @@ namespace CommitMessageFormatter
             var index = -1;
             while (true)
             {
-                index = RtbCommitMessage.Text.IndexOf(word, index + 1);
+                index = RtbCommitMessage.Text.IndexOf(
+                    word,
+                    index + 1,
+                    StringComparison.Ordinal);
+
                 if (index == -1)
                 {
                     break;
