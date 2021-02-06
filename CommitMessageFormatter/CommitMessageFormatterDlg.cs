@@ -98,6 +98,12 @@ namespace CommitMessageFormatter
             base.OnKeyDown(e);
         }
 
+        protected override void OnDeactivate(EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            base.OnDeactivate(e);
+        }
+
         private void SetPositionToTaskbar()
         {
             switch (Taskbar.Position)

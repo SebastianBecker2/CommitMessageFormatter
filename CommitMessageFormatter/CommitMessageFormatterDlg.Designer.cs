@@ -104,6 +104,7 @@ namespace CommitMessageFormatter
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CommitMessageFormatterDlg";
+            this.ShowInTaskbar = false;
             this.Text = "Commit Message Formatter";
             this.TopMost = true;
             this.tableLayoutPanel1.ResumeLayout(false);
