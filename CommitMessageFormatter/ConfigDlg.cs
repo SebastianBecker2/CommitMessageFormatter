@@ -26,13 +26,13 @@ namespace CommitMessageFormatter
         public int MaxBodyLength { get; set; }
         public int HeaderToBodySeparatorLines { get; set; }
 
-        private string currentHotkeyLabel;
+        private string hotkeyLabelPrefix;
 
         public ConfigDlg() => InitializeComponent();
 
         protected override void OnLoad(EventArgs e)
         {
-            currentHotkeyLabel = LblCurrentButton.Text;
+            hotkeyLabelPrefix = LblCurrentButton.Text;
 
             UpdateCurrentHotkey(Key, Modifier);
 
@@ -56,12 +56,25 @@ namespace CommitMessageFormatter
             Key = key;
             Modifier = modifier;
 
-            LblCurrentButton.Text = currentHotkeyLabel + Key.ToString();
+            LblCurrentButton.Text = hotkeyLabelPrefix;
+            if (Modifier.HasFlag(Hotkeys.ModifierKeys.Shift))
+            {
+                LblCurrentButton.Text += Hotkeys.ModifierKeys.Shift + " + ";
+            }
+            if (Modifier.HasFlag(Hotkeys.ModifierKeys.Control))
+            {
+                LblCurrentButton.Text += Hotkeys.ModifierKeys.Control + " + ";
+            }
+            if (Modifier.HasFlag(Hotkeys.ModifierKeys.Alt))
+            {
+                LblCurrentButton.Text += Hotkeys.ModifierKeys.Alt + " + ";
+            }
+            if (Modifier.HasFlag(Hotkeys.ModifierKeys.Windows))
+            {
+                LblCurrentButton.Text += Hotkeys.ModifierKeys.Windows + " + ";
+            }
 
-            ChbShift.Checked = Modifier.HasFlag(Hotkeys.ModifierKeys.Shift);
-            ChbControl.Checked = Modifier.HasFlag(Hotkeys.ModifierKeys.Control);
-            ChbAlt.Checked = Modifier.HasFlag(Hotkeys.ModifierKeys.Alt);
-            ChbWindows.Checked = Modifier.HasFlag(Hotkeys.ModifierKeys.Windows);
+            LblCurrentButton.Text += Key.ToString();
         }
 
         private void BtnNewHotkey_Click(object sender, EventArgs e)
@@ -82,24 +95,6 @@ namespace CommitMessageFormatter
 
         private void BtnOkay_Click(object sender, EventArgs e)
         {
-            Modifier = Hotkeys.ModifierKeys.None;
-            if (ChbShift.Checked)
-            {
-                Modifier |= Hotkeys.ModifierKeys.Shift;
-            }
-            if (ChbControl.Checked)
-            {
-                Modifier |= Hotkeys.ModifierKeys.Control;
-            }
-            if (ChbAlt.Checked)
-            {
-                Modifier |= Hotkeys.ModifierKeys.Alt;
-            }
-            if (ChbWindows.Checked)
-            {
-                Modifier |= Hotkeys.ModifierKeys.Windows;
-            }
-
             BackgroundColor = pibBackground.BackColor;
             ForegroundColor = pibForeground.BackColor;
             SeparatorColor = pibSeparator.BackColor;
