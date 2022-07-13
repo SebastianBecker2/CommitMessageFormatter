@@ -21,7 +21,7 @@ namespace CommitMessageFormatter
         private bool isReformatting = false;
 #pragma warning restore CA1805 // Do not initialize unnecessarily
         private readonly Dictionary<string, bool> spellcheckedWords =
-            new Dictionary<string, bool>();
+            new();
 
         public CommitMessageFormatterDlg() => InitializeComponent();
 
@@ -155,9 +155,7 @@ namespace CommitMessageFormatter
                 return message;
             }
 
-            var formatted = message
-                .Substring(0, endOfHeader)
-                .Replace(HeaderTooLongText, "");
+            var formatted = message[..endOfHeader].Replace(HeaderTooLongText, "");
             ;
             if (formatted.Length > Settings.Default.MaxHeaderLength)
             {
